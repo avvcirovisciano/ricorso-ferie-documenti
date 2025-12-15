@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Studio Legale Visciano - Sistema Ricorsi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body, * {
+            font-family: 'Times New Roman', Times, serif;
+        }
+        @media print {
+            body { background: white; }
+            #formSection, .no-print { display: none !important; }
+            .print-page { 
+                page-break-after: always; 
+                margin: 0; 
+                padding: 40px;
+                font-size: 12pt;
+                line-height: 1.6;
+            }
+            .print-page:last-child { page-break-after: auto; }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-indigo-50 via-blue-50 to-purple-50 min-h-screen py-8">
+    <div class="max-w-5xl mx-auto">
+        
+        <!-- Form Section -->
+        <div id="formSection" class="bg-white rounded-2xl shadow-2xl p-8 mb-6">
+            <div class="text-center mb-8">
+                <div class="text-6xl mb-4">⚖️</div>
+                <h1 class="text-4xl font-bold text-gray-900 mb-2">Studio Legale Visciano</h1>
+                <p class="text-xl text-gray-600">Sistema Raccolta Documentazione Ricorsi</p>
+            </div>
+
+            <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-6 rounded">
+                <p class="font-semibold">📋 Compila tutti i campi. Alla fine potrai stampare i 4 documenti già compilati.</p>
+            </div>
+
+            <div class="space-y-6">
+                <!-- Dati Personali -->
+                <div class="border-b pb-6">
+                    <h3 class="text-2xl font-bold mb-4 text-indigo-900">👤 Dati Personali</h3>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block font-semibold mb-2">Nome *</label>
+                            <input type="text" id="nome" class="w-full px-4 py-3 border-2 rounded-lg focus:border-indigo-500 focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block font-semibold mb-2">Cognome *</label>
+                            <input type="text" id="cognome" class="w-full px-4 py-3 border-2 rounded-lg focus:border-indigo-500 focus:outline-none">
+                        </div>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-2 gap-4 mt-4">
+                        <div>
+                            <label class="block font-semibold mb-2">Genere *</label>
+                            <select id="genere" class="w-full px-4 py-3 border-2 rounded-lg focus:border-indigo-500 focus:outline-none">
+                                <option value="Il sig.">Il sig.</option>
+                                <option value="La sig.ra">La sig.ra</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block font-semibold mb-2">Codice Fiscale *</label>
+                            <input type="text" id="cf" maxlength="16" class="w-full px-4 py-3 border-2 rounded-lg focus:border-indigo-500 focus:outline-none uppercase">
+                        </div>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-2 gap-4 mt-4">
+                        <div>
+                            <label class="block font-semibold mb-2">Data di Nascita *</label>
+                            <input type="date" id="dataNascita" class="w-full px-4 py-3 border-2 rounded-lg focus:border-indigo-500 focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block font-semibold mb-2">Luogo di Nascita *</label>
+                            <input type="text" id="luogoNascita" class="w-full px-4 py-3 border-2 rounded-lg focus:border-indigo-500 focus:outline-none">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Residenza -->
+                <div class="border-b pb-6">
+                    <h3 class="text-2xl font-bold mb-4 text-indigo-900">🏠 Residenza</h3>
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <div class="md:col-span-2">
+                            <label class="block font-semibold mb-2">Indirizzo *</label>
+                            <input type="text" id="indirizzo" class="w-full px-4 py-3 border-2 rounded-lg focus:border-indigo-500 focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block font-semibold mb-2">CAP *</label>
+                            <input type="text" id="cap" maxlength="5" class="w-full px-4 py-3 border-2 rounded-lg focus:border-indigo-500 focus:outline-none">
+                        </div>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-4 mt-4">
+                        <div>
+                            <label class="block font-semibold mb-2">Comune *</label>
+                            <input type="text" id="comune" class="w-full px-4 py-3 border-2 rounded-lg focus:border-indigo-500 focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block font-semibold mb-2">Provincia *</label>
+                            <input type="text" id="provincia" maxlength="2" class="w-full px-4 py-3 border-2 rounded-lg focus:border-indigo-500 focus:outline-none uppercase">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contatti -->
+                <div class="border-b pb-6">
+                    <h3 class="text-2xl font-bold mb-4 text-indigo-900">📞 Contatti</h3>
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <div>
+                            <label class="block font-semibold mb-2">Telefono Fisso</label>
+                            <input type="tel" id="telFisso" class="w-full px-4 py-3 border-2 rounded-lg focus:border-indigo-500 focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block font-semibold mb-2">Telefono Mobile *</label>
+                            <input type="tel" id="telMobile" class="w-full px-4 py-3 border-2 rounded-lg focus:border-indigo-500 focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block font-semibold mb-2">Email *</label>
+                            <input type="email" id="email" class="w-full px-4 py-3 border-2 rounded-lg focus:border-indigo-500 focus:outline-none">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Servizio A.S. 2025/2026 -->
+                <div class="border-b pb-6">
+                    <h3 class="text-2xl font-bold mb-4 text-indigo-900">🏫 In Servizio Anno Scolastico 2025/2026</h3>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block font-semibold mb-2">Presso (Scuola) *</label>
+                            <input type="text" id="scuola2025" class="w-full px-4 py-3 border-2 rounded-lg focus:border-indigo-500 focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block font-semibold mb-2">Con sede in (Città) *</label>
+                            <input type="text" id="sedeScuola" class="w-full px-4 py-3 border-2 rounded-lg focus:border-indigo-500 focus:outline-none">
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <label class="block font-semibold mb-2">Provincia Scuola *</label>
+                        <input type="text" id="provinciaScuola" maxlength="2" class="w-full px-4 py-3 border-2 rounded-lg focus:border-indigo-500 focus:outline-none uppercase">
+                    </div>
+                </div>
+
+                <!-- Storico Contratti con anni fissi -->
+                <div class="border-b pb-6">
+                    <h3 class="text-2xl font-bold mb-4 text-indigo-900">📋 Storico Contratti 30.06</h3>
+                    <p class="text-sm text-gray-600 mb-4">Indica per ogni anno scolastico l'istituto presso cui hai prestato servizio e se avevi un contratto al 30.06</p>
+                    
+                    <div class="space-y-3">
+                        <div class="grid md:grid-cols-3 gap-3 bg-gray-50 p-3 rounded">
+                            <div><label class="block text-sm font-medium mb-1">A.S. 2014/2015</label></div>
+                            <div><input type="text" id="istituto_0" placeholder="Nome Istituto" class="w-full px-3 py-2 border rounded-lg text-sm"></div>
+                            <div><select id="contratto_0" class="w-full px-3 py-2 border rounded-lg text-sm">
+                                <option value="">Contratto 30.06?</option>
+                                <option value="SI">SI</option>
+                                <option value="NO">NO</option>
+                            </select></div>
+                        </div>
+                        <div class="grid md:grid-cols-3 gap-3 bg-gray-50 p-3 rounded">
+                            <div><label class="block text-sm font-medium mb-1">A.S. 2015/2016</label></div>
+                            <div><input type="text" id="istituto_1" placeholder="Nome Istituto" class="w-full px-3 py-2 border rounded-lg text-sm"></div>
+                            <div><select id="contratto_1" class="w-full px-3 py-2 border rounded-lg text-sm">
+                                <option value="">Contratto 30.06?</option>
+                                <option value="SI">SI</option>
+                                <option value="NO">NO</option>
+                            </select></div>
+                        </div>
+                        <div class="grid md:grid-cols-3 gap-3 bg-gray-50 p-3 rounded">
+                            <div><label class="block text-sm font-medium mb-1">A.S. 2016/2017</label></div>
+                            <div><input type="text" id="istituto_2" placeholder="Nome Istituto" class="w-full px-3 py-2 border rounded-lg text-sm"></div>
+                            <div><select id="contratto_2" class="w-full px-3 py-2 border rounded-lg text-sm">
+                                <option value="">Contratto 30.06?</option>
+                                <option value="SI">SI</option>
+                                <option value="NO">NO</option>
+                            </select></div>
+                        </div>
+                        <div class="grid md:grid-cols-3 gap-3 bg-gray-50 p-3 rounded">
+                            <div><label class="block text-sm font-medium mb-1">A.S. 2017/2018</label></div>
+                            <div><input type="text" id="istituto_3" placeholder="Nome Istituto" class="w-full px-3 py-2 border rounded-lg text-sm"></div>
+                            <div><select id="contratto_3" class="w-full px-3 py-2 border rounded-lg text-sm">
+                                <option value="">Contratto 30.06?</option>
+                                <option value="SI">SI</option>
+                                <option value="NO">NO</option>
+                            </select></div>
+                        </div>
+                        <div class="grid md:grid-cols-3 gap-3 bg-gray-50 p-3 rounded">
+                            <div><label class="block text-sm font-medium mb-1">A.S. 2018/2019</label></div>
+                            <div><input type="text" id="istituto_4" placeholder="Nome Istituto" class="w-full px-3 py-2 border rounded-lg text-sm"></div>
+                            <div><select id="contratto_4" class="w-full px-3 py-2 border rounded-lg text-sm">
+                                <option value="">Contratto 30.06?</option>
+                                <option value="SI">SI</option>
+                                <option value="NO">NO</option>
+                            </select></div>
+                        </div>
+                        <div class="grid md:grid-cols-3 gap-3 bg-gray-50 p-3 rounded">
+                            <div><label class="block text-sm font-medium mb-1">A.S. 2019/2020</label></div>
+                            <div><input type="text" id="istituto_5" placeholder="Nome Istituto" class="w-full px-3 py-2 border rounded-lg text-sm"></div>
+                            <div><select id="contratto_5" class="w-full px-3 py-2 border rounded-lg text-sm">
+                                <option value="">Contratto 30.06?</option>
+                                <option value="SI">SI</option>
+                                <option value="NO">NO</option>
+                            </select></div>
+                        </div>
+                        <div class="grid md:grid-cols-3 gap-3 bg-gray-50 p-3 rounded">
+                            <div><label class="block text-sm font-medium mb-1">A.S. 2021/2022</label></div>
+                            <div><input type="text" id="istituto_6" placeholder="Nome Istituto" class="w-full px-3 py-2 border rounded-lg text-sm"></div>
+                            <div><select id="contratto_6" class="w-full px-3 py-2 border rounded-lg text-sm">
+                                <option value="">Contratto 30.06?</option>
+                                <option value="SI">SI</option>
+                                <option value="NO">NO</option>
+                            </select></div>
+                        </div>
+                        <div class="grid md:grid-cols-3 gap-3 bg-gray-50 p-3 rounded">
+                            <div><label class="block text-sm font-medium mb-1">A.S. 2022/2023</label></div>
+                            <div><input type="text" id="istituto_7" placeholder="Nome Istituto" class="w-full px-3 py-2 border rounded-lg text-sm"></div>
+                            <div><select id="contratto_7" class="w-full px-3 py-2 border rounded-lg text-sm">
+                                <option value="">Contratto 30.06?</option>
+                                <option value="SI">SI</option>
+                                <option value="NO">NO</option>
+                            </select></div>
+                        </div>
+                        <div class="grid md:grid-cols-3 gap-3 bg-gray-50 p-3 rounded">
+                            <div><label class="block text-sm font-medium mb-1">A.S. 2023/2024</label></div>
+                            <div><input type="text" id="istituto_8" placeholder="Nome Istituto" class="w-full px-3 py-2 border rounded-lg text-sm"></div>
+                            <div><select id="contratto_8" class="w-full px-3 py-2 border rounded-lg text-sm">
+                                <option value="">Contratto 30.06?</option>
+                                <option value="SI">SI</option>
+                                <option value="NO">NO</option>
+                            </select></div>
+                        </div>
+                        <div class="grid md:grid-cols-3 gap-3 bg-gray-50 p-3 rounded">
+                            <div><label class="block text-sm font-medium mb-1">A.S. 2024/2025</label></div>
+                            <div><input type="text" id="istituto_9" placeholder="Nome Istituto" class="w-full px-3 py-2 border rounded-lg text-sm"></div>
+                            <div><select id="contratto_9" class="w-full px-3 py-2 border rounded-lg text-sm">
+                                <option value="">Contratto 30.06?</option>
+                                <option value="SI">SI</option>
+                                <option value="NO">NO</option>
+                            </select></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Trasferimenti -->
+                <div class="border-b pb-6">
+                    <h3 class="text-2xl font-bold mb-4 text-indigo-900">🔄 Trasferimenti</h3>
+                    <label class="block font-semibold mb-2">Eventuali trasferimenti (opzionale)</label>
+                    <textarea id="trasferimenti" rows="3" class="w-full px-4 py-3 border-2 rounded-lg focus:border-indigo-500 focus:outline-none" placeholder="Descrivi eventuali trasferimenti..."></textarea>
+                </div>
+
+                <!-- Nucleo Familiare -->
+                <div class="border-b pb-6">
+                    <h3 class="text-2xl font-bold mb-4 text-indigo-900">👨‍👩‍👧‍👦 Nucleo Familiare</h3>
+                    <div class="mb-4">
+                        <label class="block font-semibold mb-2">Anno di Riferimento Reddito *</label>
+                        <input type="text" id="annoReddito" value="2023" class="w-full px-4 py-3 border-2 rounded-lg focus:border-indigo-500 focus:outline-none">
+                    </div>
+                    <div id="nucleoContainer"></div>
+                    <button type="button" onclick="addFamiliare()" class="mt-4 bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 font-semibold">
+                        ➕ Aggiungi Familiare
+                    </button>
+                </div>
+
+                <!-- Submit -->
+                <div class="text-center pt-6">
+                    <button onclick="generateDocs()" class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-12 py-4 rounded-xl text-xl font-bold hover:from-indigo-700 hover:to-purple-700 shadow-lg transform hover:scale-105 transition">
+                        🚀 Genera Documenti
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Documents Section (Hidden Initially) -->
+        <div id="docsSection" class="hidden">
+            <!-- Navigation Bar -->
+            <div class="bg-white rounded-2xl shadow-2xl p-6 mb-6 no-print sticky top-4 z-50">
+                <div class="text-center mb-4">
+                    <h2 class="text-2xl font-bold text-green-600 mb-2">✅ Documenti Generati!</h2>
+                    <p class="text-sm text-gray-600 mb-4">Naviga tra i documenti con i pulsanti qui sotto</p>
+                </div>
+                
+                <!-- Document Navigation -->
+                <div class="flex flex-wrap gap-2 justify-center mb-4">
+                    <button onclick="showDoc(1)" id="btn_doc1" class="px-6 py-3 rounded-lg font-semibold bg-indigo-600 text-white hover:bg-indigo-700">
+                        📄 Doc 1: Raccolta Dati
+                    </button>
+                    <button onclick="showDoc(2)" id="btn_doc2" class="px-6 py-3 rounded-lg font-semibold bg-gray-300 text-gray-700 hover:bg-gray-400">
+                        📄 Doc 2: Procura
+                    </button>
+                    <button onclick="showDoc(3)" id="btn_doc3" class="px-6 py-3 rounded-lg font-semibold bg-gray-300 text-gray-700 hover:bg-gray-400">
+                        📄 Doc 3: Autocertificazione
+                    </button>
+                    <button onclick="showDoc(4)" id="btn_doc4" class="px-6 py-3 rounded-lg font-semibold bg-gray-300 text-gray-700 hover:bg-gray-400">
+                        📄 Doc 4: Privacy
+                    </button>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex flex-wrap gap-3 justify-center border-t pt-4">
+                    <button onclick="printCurrentDoc()" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 font-semibold">
+                        🖨️ Stampa Documento Corrente
+                    </button>
+                    <button onclick="window.print()" class="bg-blue-800 text-white px-6 py-2 rounded-lg hover:bg-blue-900 font-semibold">
+                        🖨️ Stampa Tutti
+                    </button>
+                    <button onclick="openEmail()" class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 font-semibold">
+                        📧 Invia Email
+                    </button>
+                    <button onclick="location.reload()" class="bg-gray-600 text-white px-6 py-2 rounded-lg hover:bg-gray-700 font-semibold">
+                        🔄 Ricomincia
+                    </button>
+                </div>
+            </div>
+
+            <!-- Documento 1: Modulo Raccolta Dati -->
+            <div id="doc_page_1" class="doc-page print-page bg-white p-12 mb-6 shadow-lg rounded-xl">
+                <div style="text-align: center; margin-bottom: 30px;">
+                    <h2 style="font-size: 18pt; font-weight: bold; margin-bottom: 10px;">MODULO RACCOLTA DATI</h2>
+                    <p style="font-size: 12pt;">Studio Legale Visciano</p>
+                </div>
+
+                <p style="margin-bottom: 20px;"><span id="d1_genere"></span> <strong><span id="d1_nominativo"></span></strong>, nat<span id="d1_nato"></span> a <span id="d1_luogoNascita"></span> (<span id="d1_provNascita"></span>) il <span id="d1_dataNascita"></span>, C.F. <span id="d1_cf"></span>, residente in <span id="d1_comune"></span> (<span id="d1_provincia"></span>), alla <span id="d1_indirizzo"></span>, CAP <span id="d1_cap"></span>.</p>
+
+                <p style="margin-bottom: 10px;"><strong>Contatti:</strong></p>
+                <p style="margin-bottom: 5px;">Tel. Fisso: <span id="d1_telFisso"></span></p>
+                <p style="margin-bottom: 5px;">Tel. Mobile: <span id="d1_telMobile"></span></p>
+                <p style="margin-bottom: 20px;">Email: <span id="d1_email"></span></p>
+
+                <p style="margin-bottom: 20px;"><strong>In servizio nell'anno scolastico 2025/2026</strong> presso <span id="d1_scuola"></span> con sede in <span id="d1_sedeScuola"></span> (<span id="d1_provinciaScuola"></span>).</p>
+
+                <p style="margin-bottom: 10px;"><strong>Storico Contratti:</strong></p>
+                <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px; border: 1px solid #000;">
+                    <thead>
+                        <tr style="background-color: #f0f0f0; border: 1px solid #000;">
+                            <th style="border: 1px solid #000; padding: 8px; text-align: left;">Anno Scolastico</th>
+                            <th style="border: 1px solid #000; padding: 8px; text-align: left;">Istituto</th>
+                            <th style="border: 1px solid #000; padding: 8px; text-align: left;">Contratto 30.06</th>
+                        </tr>
+                    </thead>
+                    <tbody id="d1_tabellaContratti"></tbody>
+                </table>
+
+                <p style="margin-bottom: 20px;" id="d1_trasferimenti"></p>
+
+                <div style="margin-top: 60px;">
+                    <p>Data: <span id="d1_data"></span></p>
+                    <p style="margin-top: 40px;">Firma: _______________________________</p>
+                </div>
+            </div>
+
+            <!-- Documento 2: Procura alle Liti -->
+            <div id="doc_page_2" class="doc-page print-page bg-white p-12 mb-6 shadow-lg rounded-xl" style="display: none;">
+                <div style="text-align: center; margin-bottom: 30px;">
+                    <h2 style="font-size: 18pt; font-weight: bold; margin-bottom: 10px;">PROCURA ALLE LITI</h2>
+                </div>
+
+                <p style="margin-bottom: 20px;"><span id="d2_genere"></span> <strong><span id="d2_nominativo"></span></strong>, nat<span id="d2_nato"></span> a <span id="d2_luogoNascita"></span> (<span id="d2_provNascita"></span>) il <span id="d2_dataNascita"></span>, C.F. <span id="d2_cf"></span>, residente in <span id="d2_comune"></span> (<span id="d2_provincia"></span>), alla <span id="d2_indirizzo"></span>,</p>
+
+                <p style="margin-bottom: 20px; text-align: center; font-weight: bold; font-size: 14pt;">NOMINA E COSTITUISCE</p>
+
+                <p style="margin-bottom: 20px;">quale proprio procuratore alle liti l'Avv. <strong>Paolo Visciano</strong>, iscritto all'Albo degli Avvocati di Napoli, con studio in Napoli, alla Via Cervantes n. 55/5, conferendogli ogni più ampia facoltà di legge, e quindi anche quella di proporre nel proprio interesse ricorsi, impugnazioni, azioni giudiziarie di ogni genere e grado davanti a qualsiasi autorità giudiziaria ed amministrativa, compresa la facoltà di nominare altri difensori, anche domiciliatari, di conciliare e transigere, di rilasciare quietanze, di compromettere in arbitri, di farsi sostituire e di compiere ogni altro atto, anche non espressamente menzionato, che fosse ritenuto opportuno e necessario nell'interesse del sottoscritto.</p>
+
+                <div style="margin-top: 80px;">
+                    <p>Data: <span id="d2_data"></span></p>
+                    <p style="margin-top: 40px;">Il Sottoscritto: _______________________________</p>
+                </div>
+            </div>
+
+            <!-- Documento 3: Autocertificazione Reddituale -->
+            <div id="doc_page_3" class="doc-page print-page bg-white p-12 mb-6 shadow-lg rounded-xl" style="display: none;">
+                <div style="text-align: center; margin-bottom: 30px;">
+                    <h2 style="font-size: 18pt; font-weight: bold; margin-bottom: 10px;">AUTOCERTIFICAZIONE AI SENSI DEL D.P.R. 445/2000</h2>
+                    <h3 style="font-size: 14pt; font-weight: bold;">DICHIARAZIONE SOSTITUTIVA DELL'ATTO DI NOTORIETÀ</h3>
+                </div>
+
+                <p style="margin-bottom: 20px;">Il/La sottoscritto/a <strong><span id="d3_cognomeNome"></span></strong>, nato/a a <span id="d3_luogoNascita"></span> il <span id="d3_dataNascita"></span>, residente a <span id="d3_comune"></span>, recapito telefonico <span id="d3_tel"></span>, consapevole delle sanzioni penali previste dall'art. 76 del D.P.R. n. 445/2000 per le ipotesi di falsità in atti e dichiarazioni mendaci,</p>
+
+                <p style="text-align: center; font-weight: bold; margin-bottom: 20px; font-size: 14pt;">DICHIARA</p>
+
+                <p style="margin-bottom: 20px;">che il proprio nucleo familiare, nell'anno <strong><span id="d3_anno"></span></strong>, era così composto:</p>
+
+                <table style="width: 100%; border-collapse: collapse; margin-bottom: 30px; border: 1px solid #000;">
+                    <thead>
+                        <tr style="background-color: #f0f0f0; border: 1px solid #000;">
+                            <th style="border: 1px solid #000; padding: 8px;">Cognome, Nome e C.F.</th>
+                            <th style="border: 1px solid #000; padding: 8px;">Data di Nascita</th>
+                            <th style="border: 1px solid #000; padding: 8px;">Comune di Nascita</th>
+                            <th style="border: 1px solid #000; padding: 8px;">Grado di Parentela</th>
+                        </tr>
+                    </thead>
+                    <tbody id="d3_tabellaFamiliari"></tbody>
+                </table>
+
+                <p style="margin-bottom: 20px;">Il/La sottoscritto/a dichiara di essere informato/a, ai sensi e per gli effetti di cui all'art. 13 del D.Lgs. 196/2003 e del GDPR 679/2016, che i dati personali raccolti saranno trattati, anche con strumenti informatici, esclusivamente nell'ambito del procedimento per il quale la presente dichiarazione viene resa.</p>
+
+                <div style="margin-top: 60px;">
+                    <p>Data: <span id="d3_data"></span></p>
+                    <p style="margin-top: 40px;">Il Dichiarante: _______________________________</p>
+                </div>
+
+                <div style="margin-top: 40px; border-top: 2px solid #000; padding-top: 20px;">
+                    <p style="font-size: 10pt; font-style: italic;">Ai sensi dell'art. 38 del D.P.R. 445/2000, la dichiarazione è sottoscritta dall'interessato in presenza del dipendente addetto ovvero sottoscritta e presentata unitamente a copia fotostatica non autenticata di un documento di identità del sottoscrittore.</p>
+                    <p style="margin-top: 20px;">Data: <span id="d3_data2"></span></p>
+                    <p style="margin-top: 20px;">Firma: _______________________________</p>
+                </div>
+            </div>
+
+            <!-- Documento 4: Privacy -->
+            <div id="doc_page_4" class="doc-page print-page bg-white p-12 shadow-lg rounded-xl" style="display: none;">
+                <div style="text-align: center; margin-bottom: 30px;">
+                    <h2 style="font-size: 18pt; font-weight: bold; margin-bottom: 10px;">INFORMATIVA SUL TRATTAMENTO DEI DATI PERSONALI</h2>
+                    <p style="font-size: 12pt;">Art. 13 D.Lgs. 196/2003 e GDPR 679/2016</p>
+                </div>
+
+                <p style="margin-bottom: 15px;">Gentile Cliente,</p>
+
+                <p style="margin-bottom: 15px;">ai sensi dell'art. 13 del D.Lgs. 196/2003 (Codice in materia di protezione dei dati personali) e del Regolamento UE 2016/679 (GDPR), La informiamo che i Suoi dati personali saranno oggetto di trattamento nel rispetto della normativa sopra richiamata e degli obblighi di riservatezza.</p>
+
+                <p style="margin-bottom: 10px; font-weight: bold;">1. Titolare del Trattamento</p>
+                <p style="margin-bottom: 15px;">Il Titolare del trattamento dei dati è lo Studio Legale Visciano, con sede in Napoli, Via Cervantes n. 55/5.</p>
+
+                <p style="margin-bottom: 10px; font-weight: bold;">2. Finalità del Trattamento</p>
+                <p style="margin-bottom: 15px;">I dati personali da Lei forniti saranno trattati esclusivamente per le seguenti finalità: gestione della pratica legale, adempimenti di obblighi previsti da leggi, regolamenti e normativa comunitaria, gestione amministrativa e contabile.</p>
+
+                <p style="margin-bottom: 10px; font-weight: bold;">3. Modalità del Trattamento</p>
+                <p style="margin-bottom: 15px;">Il trattamento dei dati personali avviene mediante strumenti manuali, informatici e telematici con logiche strettamente correlate alle finalità sopra indicate e, comunque, in modo da garantire la sicurezza e la riservatezza dei dati stessi.</p>
+
+                <p style="margin-bottom: 10px; font-weight: bold;">4. Diritti dell'Interessato</p>
+                <p style="margin-bottom: 15px;">In relazione al trattamento dei dati personali sopra esposto l'interessato ha diritto, in qualunque momento, di ottenere la conferma dell'esistenza o meno dei medesimi dati e di conoscerne il contenuto e l'origine, verificarne l'esattezza o chiederne l'integrazione o l'aggiornamento, oppure la rettificazione (art. 7 del D.Lgs. n. 196/2003 e artt. 15-22 del GDPR).</p>
+
+                <p style="margin-bottom: 30px;">Ai sensi del medesimo articolo si ha il diritto di chiedere la cancellazione, la trasformazione in forma anonima o il blocco dei dati trattati in violazione di legge, nonché di opporsi in ogni caso, per motivi legittimi, al loro trattamento.</p>
+
+                <div style="margin-top: 60px;">
+                    <p style="margin-bottom: 30px;">Il/La sottoscritto/a <strong><span id="d4_cognomeNome"></span></strong> dichiara di aver ricevuto l'informativa sul trattamento dei dati personali e di prestare il proprio consenso al trattamento degli stessi per le finalità indicate.</p>
+                    
+                    <p>Data: <span id="d4_data"></span></p>
+                    <p style="margin-top: 40px;">Firma per accettazione: _______________________________</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const anniScolastici = [
+            '2014/2015', '2015/2016', '2016/2017', '2017/2018', '2018/2019',
+            '2019/2020', '2021/2022', '2022/2023', '2023/2024', '2024/2025'
+        ];
+
+        // Gestione familiari
+        let familiareCount = 0;
+        function addFamiliare() {
+            familiareCount++;
+            const container = document.getElementById('nucleoContainer');
+            const div = document.createElement('div');
+            div.className = 'bg-gray-50 p-4 rounded-lg border-2 border-gray-200 mb-4';
+            div.id = `fam_${familiareCount}`;
+            div.innerHTML = `
+                <div class="flex justify-between items-center mb-3">
+                    <h4 class="font-semibold">Familiare ${familiareCount}</h4>
+                    <button type="button" onclick="document.getElementById('fam_${familiareCount}').remove()" class="text-red-600 hover:text-red-800 font-bold text-xl">× Rimuovi</button>
+                </div>
+                <div class="grid md:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Cognome e Nome</label>
+                        <input type="text" id="fam_nome_${familiareCount}" class="w-full px-3 py-2 border rounded-lg text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Codice Fiscale</label>
+                        <input type="text" id="fam_cf_${familiareCount}" maxlength="16" class="w-full px-3 py-2 border rounded-lg text-sm uppercase">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Data Nascita</label>
+                        <input type="date" id="fam_data_${familiareCount}" class="w-full px-3 py-2 border rounded-lg text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Comune Nascita</label>
+                        <input type="text" id="fam_comune_${familiareCount}" class="w-full px-3 py-2 border rounded-lg text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Parentela</label>
+                        <select id="fam_parentela_${familiareCount}" class="w-full px-3 py-2 border rounded-lg text-sm">
+                            <option value="">Seleziona...</option>
+                            <option value="Coniuge">Coniuge</option>
+                            <option value="Figlio/a">Figlio/a</option>
+                            <option value="Genitore">Genitore</option>
+                            <option value="Fratello/Sorella">Fratello/Sorella</option>
+                        </select>
+                    </div>
+                </div>
+            `;
+            container.appendChild(div);
+        }
+
+        function formatDateItalian(dateStr) {
+            if (!dateStr) return '';
+            const date = new Date(dateStr);
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const year = date.getFullYear();
+            return `${day}/${month}/${year}`;
+        }
+
+        function generateDocs() {
+            // Raccogli dati
+            const data = {
+                nome: document.getElementById('nome').value,
+                cognome: document.getElementById('cognome').value,
+                genere: document.getElementById('genere').value,
+                cf: document.getElementById('cf').value,
+                dataNascita: document.getElementById('dataNascita').value,
+                luogoNascita: document.getElementById('luogoNascita').value,
+                indirizzo: document.getElementById('indirizzo').value,
+                cap: document.getElementById('cap').value,
+                comune: document.getElementById('comune').value,
+                provincia: document.getElementById('provincia').value,
+                telFisso: document.getElementById('telFisso').value,
+                telMobile: document.getElementById('telMobile').value,
+                email: document.getElementById('email').value,
+                scuola2025: document.getElementById('scuola2025').value,
+                sedeScuola: document.getElementById('sedeScuola').value,
+                provinciaScuola: document.getElementById('provinciaScuola').value,
+                trasferimenti: document.getElementById('trasferimenti').value,
+                annoReddito: document.getElementById('annoReddito').value
+            };
+
+            // Validazione base
+            if (!data.nome || !data.cognome || !data.cf || !data.email) {
+                alert('⚠️ Compila tutti i campi obbligatori (*)');
+                return;
+            }
+
+            // Raccogli contratti dagli anni fissi
+            const contratti = [];
+            for (let i = 0; i < anniScolastici.length; i++) {
+                const istituto = document.getElementById(`istituto_${i}`).value;
+                const contratto = document.getElementById(`contratto_${i}`).value;
+                if (istituto || contratto) {
+                    contratti.push({
+                        as: anniScolastici[i],
+                        istituto: istituto,
+                        contratto: contratto
+                    });
+                }
+            }
+
+            // Raccogli familiari
+            const familiari = [];
+            for (let i = 1; i <= familiareCount; i++) {
+                const nome = document.getElementById(`fam_nome_${i}`);
+                if (nome && nome.value) {
+                    familiari.push({
+                        nome: nome.value,
+                        cf: document.getElementById(`fam_cf_${i}`).value,
+                        dataNascita: document.getElementById(`fam_data_${i}`).value,
+                        comuneNascita: document.getElementById(`fam_comune_${i}`).value,
+                        parentela: document.getElementById(`fam_parentela_${i}`).value
+                    });
+                }
+            }
+
+            // Formatta date
+            const dataNascitaIta = formatDateItalian(data.dataNascita);
+            const oggi = formatDateItalian(new Date().toISOString().split('T')[0]);
+
+            // Popola Doc 1 - Modulo Raccolta Dati
+            document.getElementById('d1_genere').textContent = data.genere.replace('.', '');
+            document.getElementById('d1_nominativo').textContent = `${data.cognome} ${data.nome}`;
+            document.getElementById('d1_nato').textContent = data.genere === 'La sig.ra' ? 'a' : 'o';
+            document.getElementById('d1_luogoNascita').textContent = data.luogoNascita;
+            document.getElementById('d1_provNascita').textContent = data.provincia;
+            document.getElementById('d1_dataNascita').textContent = dataNascitaIta;
+            document.getElementById('d1_cf').textContent = data.cf;
+            document.getElementById('d1_comune').textContent = data.comune;
+            document.getElementById('d1_provincia').textContent = data.provincia;
+            document.getElementById('d1_indirizzo').textContent = data.indirizzo;
+            document.getElementById('d1_cap').textContent = data.cap;
+            document.getElementById('d1_telFisso').textContent = data.telFisso || 'N/A';
+            document.getElementById('d1_telMobile').textContent = data.telMobile;
+            document.getElementById('d1_email').textContent = data.email;
+            document.getElementById('d1_scuola').textContent = data.scuola2025;
+            document.getElementById('d1_sedeScuola').textContent = data.sedeScuola;
+            document.getElementById('d1_provinciaScuola').textContent = data.provinciaScuola;
+            document.getElementById('d1_data').textContent = oggi;
+            
+            // Popola tabella contratti
+            let tabellaHTML = '';
+            contratti.forEach(c => {
+                tabellaHTML += `
+                    <tr style="border: 1px solid #000;">
+                        <td style="border: 1px solid #000; padding: 4px;">A.S. ${c.as}</td>
+                        <td style="border: 1px solid #000; padding: 4px;">${c.istituto || ''}</td>
+                        <td style="border: 1px solid #000; padding: 4px;">${c.contratto || ''}</td>
+                    </tr>
+                `;
+            });
+            document.getElementById('d1_tabellaContratti').innerHTML = tabellaHTML;
+            
+            // Trasferimenti
+            if (data.trasferimenti) {
+                document.getElementById('d1_trasferimenti').textContent = `Trasferimenti: ${data.trasferimenti}`;
+            }
+
+            // Popola Doc 2 - Procura
+            document.getElementById('d2_genere').textContent = data.genere.replace('.', '');
+            document.getElementById('d2_nominativo').textContent = `${data.cognome} ${data.nome}`;
+            document.getElementById('d2_nato').textContent = data.genere === 'La sig.ra' ? 'a' : 'o';
+            document.getElementById('d2_luogoNascita').textContent = data.luogoNascita;
+            document.getElementById('d2_provNascita').textContent = data.provincia;
+            document.getElementById('d2_dataNascita').textContent = dataNascitaIta;
+            document.getElementById('d2_cf').textContent = data.cf;
+            document.getElementById('d2_comune').textContent = data.comune;
+            document.getElementById('d2_provincia').textContent = data.provincia;
+            document.getElementById('d2_indirizzo').textContent = data.indirizzo;
+            document.getElementById('d2_data').textContent = oggi;
+
+            // Popola Doc 3 - Autocertificazione
+            document.getElementById('d3_cognomeNome').textContent = `${data.cognome} ${data.nome}`;
+            document.getElementById('d3_luogoNascita').textContent = data.luogoNascita;
+            document.getElementById('d3_dataNascita').textContent = dataNascitaIta;
+            document.getElementById('d3_comune').textContent = data.comune;
+            document.getElementById('d3_tel').textContent = data.telMobile;
+            document.getElementById('d3_anno').textContent = data.annoReddito;
+            document.getElementById('d3_data').textContent = oggi;
+            document.getElementById('d3_data2').textContent = oggi;
+            
+            // Aggiungi familiari nella tabella dell'autocertificazione
+            const tbody = document.getElementById('d3_tabellaFamiliari');
+            let famHTML = `
+                <tr style="border: 1px solid #000;">
+                    <td style="padding: 12px; border: 1px solid #000;">${data.cognome} ${data.nome}<br>C.F. ${data.cf}</td>
+                    <td style="padding: 12px; border: 1px solid #000;">${dataNascitaIta}</td>
+                    <td style="padding: 12px; border: 1px solid #000;">${data.luogoNascita}</td>
+                    <td style="padding: 12px; border: 1px solid #000;">Richiedente</td>
+                </tr>
+            `;
+            
+            familiari.forEach(fam => {
+                const dataFamIta = formatDateItalian(fam.dataNascita);
+                famHTML += `
+                    <tr style="border: 1px solid #000;">
+                        <td style="padding: 4px; border: 1px solid #000;">${fam.nome}<br>C.F. ${fam.cf}</td>
+                        <td style="padding: 4px; border: 1px solid #000;">${dataFamIta}</td>
+                        <td style="padding: 4px; border: 1px solid #000;">${fam.comuneNascita}</td>
+                        <td style="padding: 4px; border: 1px solid #000;">${fam.parentela}</td>
+                    </tr>
+                `;
+            });
+            
+            // Aggiungi righe vuote se necessario
+            for (let i = familiari.length; i < 2; i++) {
+                famHTML += `
+                    <tr style="border: 1px solid #000;">
+                        <td style="padding: 12px; border: 1px solid #000;"><br>C.F.</td>
+                        <td style="padding: 12px; border: 1px solid #000;"></td>
+                        <td style="padding: 12px; border: 1px solid #000;"></td>
+                        <td style="padding: 12px; border: 1px solid #000;"></td>
+                    </tr>
+                `;
+            }
+            tbody.innerHTML = famHTML;
+
+            // Popola Doc 4 - Privacy
+            document.getElementById('d4_cognomeNome').textContent = `${data.cognome} ${data.nome}`;
+            document.getElementById('d4_data').textContent = oggi;
+
+            // Mostra documenti
+            document.getElementById('formSection').style.display = 'none';
+            document.getElementById('docsSection').classList.remove('hidden');
+            window.scrollTo(0, 0);
+            
+            // Mostra il primo documento
+            showDoc(1);
+
+            // Salva dati per email
+            window.formData = { ...data, contratti, familiari };
+        }
+
+        function openEmail() {
+            if (!window.formData) return;
+            const d = window.formData;
+            const subject = encodeURIComponent(`Ricorso - ${d.cognome} ${d.nome}`);
+            const body = encodeURIComponent(`Gentile Avv. Visciano,
+
+invio in allegato la documentazione per il ricorso:
+
+- Modulo Raccolta Dati (firmato)
+- Procura alle Liti (firmata)
+- Autocertificazione Reddituale (firmata)
+- Informativa Privacy (firmata)
+- Documento di identità
+- Contratti di lavoro
+- Cedolini paga
+
+Cordiali saluti,
+${d.nome} ${d.cognome}
+${d.email}
+${d.telMobile}`);
+            
+            window.location.href = `mailto:segreteria@studiovisciano.it?subject=${subject}&body=${body}`;
+        }
+
+        // Gestione navigazione documenti
+        let currentDoc = 1;
+        
+        function showDoc(docNum) {
+            // Nascondi tutti i documenti
+            for (let i = 1; i <= 4; i++) {
+                const doc = document.getElementById(`doc_page_${i}`);
+                const btn = document.getElementById(`btn_doc${i}`);
+                if (doc) doc.style.display = 'none';
+                if (btn) {
+                    btn.className = 'px-6 py-3 rounded-lg font-semibold bg-gray-300 text-gray-700 hover:bg-gray-400';
+                }
+            }
+            
+            // Mostra il documento selezionato
+            const selectedDoc = document.getElementById(`doc_page_${docNum}`);
+            const selectedBtn = document.getElementById(`btn_doc${docNum}`);
+            if (selectedDoc) selectedDoc.style.display = 'block';
+            if (selectedBtn) {
+                selectedBtn.className = 'px-6 py-3 rounded-lg font-semibold bg-indigo-600 text-white hover:bg-indigo-700';
+            }
+            
+            currentDoc = docNum;
+            window.scrollTo(0, 0);
+        }
+        
+        function printCurrentDoc() {
+            // Nascondi tutti i documenti tranne quello corrente
+            for (let i = 1; i <= 4; i++) {
+                const doc = document.getElementById(`doc_page_${i}`);
+                if (doc && i !== currentDoc) {
+                    doc.style.display = 'none';
+                }
+            }
+            
+            // Mostra solo il documento corrente
+            const currentDocument = document.getElementById(`doc_page_${currentDoc}`);
+            if (currentDocument) {
+                currentDocument.style.display = 'block';
+            }
+            
+            // Stampa
+            window.print();
+            
+            // Ripristina la visualizzazione dopo la stampa
+            setTimeout(() => {
+                showDoc(currentDoc);
+            }, 100);
+        }
+    </script>
+</body>
+</html>
